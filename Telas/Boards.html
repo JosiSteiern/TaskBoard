@@ -4,13 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boards</title>
+    <link rel="stylesheet" href="../CSS/Boards.css">
+    <link rel="stylesheet" href="../CSS/global.css">
 </head>
 <body>
-    <div class="cabecalho">
 
+    <div class="cabecalho">
+        <img src="" alt="Logo">
+        <h1>TaskBoard</h1>
     </div>
+
     <nav class="navBar">
 
+        <div class="dropdown">
+            <button type="button" class="botao-dropdown" id="btndrop">Boards</button>
+            <ul class="content-dropdown" id="mydropdown">
+                
+            </ul>
+        </div>
+
+        <div class="info-user-logout">
+            <div class="greeting">
+                <span id="greetingmsg"></span>
+            </div>
+
+        </div>
+
     </nav>
+
+    <div class="content-boards">
+        <div class="column">
+
+        </div>
+        <div class="column">
+
+        </div>
+        <div class="column">
+            
+        </div>
+    </div>
+
+    <!--Imagens nuvens-->
+    <img src="../resources/nuvem3.png" alt="nuvem" class="nuvem1">
+    <img src="../resources/nuvem3.png" alt="nuvem" class="nuvem2">
+    <img src="../resources/nuvem.png" alt="nuvem" class="nuvem3">
+
+    <script type="module" src="../JS/telas/Boards.js"></script>
+
 </body>
 </html>
