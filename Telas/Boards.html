@@ -10,8 +10,17 @@
 <body>
 
     <div class="cabecalho">
-        <img src="" alt="Logo">
-        <h1>TaskBoard</h1>
+
+        <div class="info-logo">
+            <img src="../resources/LOGO.png" alt="Logo">
+            <h1 id="titulo-logo" class="titulo-logo">TaskBoard</h1>
+        </div>
+
+        <div class="modo-dark-light">
+            <div class="trilho" id="trilho">
+                <div class="indicador"></div>
+            </div>
+        </div>
     </div>
 
     <nav class="navBar">
@@ -26,6 +35,7 @@
         <div class="info-user-logout">
             <div class="greeting">
                 <span id="greetingmsg"></span>
+                <button id="logOut" class="botao-logOut">LogOut</button>
             </div>
 
         </div>
@@ -49,7 +59,7 @@
     <img src="../resources/nuvem3.png" alt="nuvem" class="nuvem2">
     <img src="../resources/nuvem.png" alt="nuvem" class="nuvem3">
 
-    <script type="module" src="../JS/telas/Boards.js"></script>
+    <script type="module" src="../JS/telas/Boards.js" defer></script>
 
 </body>
 </html>
