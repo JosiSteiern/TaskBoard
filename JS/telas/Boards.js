@@ -3,6 +3,8 @@ import {resgatarLocalStorage} from "../localStorage/saveLocalSt.js";
 
 const botaoDrop = document.getElementById("mydropdown")
 const infoLS = resgatarLocalStorage("user");
+const boardContent = document.getElementById("board-content")
+
 
 document.getElementById("btndrop").addEventListener("click", ()=> {
     botaoDrop.classList.toggle("show");
@@ -38,8 +40,11 @@ async function boardsInfo(){
         boards.forEach((board) => {
             let lista = document.createElement("li");
             lista.innerHTML = `<a id="${board.Id}">${board.Name}</a>`
+            lista.addEventListener("click", (event)=>{
+              console.log(board.Id)
+              chamaBoard(board.Id);
+            })
             content.appendChild(lista);
-            console.log(lista)
         });
     }
     catch(error){
@@ -65,12 +70,87 @@ document.getElementById("logOut").addEventListener("click", () => {
   window.location.href = "../index.html"
 })
 
+async function chamaBoard(boardId){
+
+  try{
+    const response = await fetch(`${API_BASE_URL}/Board?BoardId=${boardId}`)
+    if(!response.ok){
+      throw new Error(`Erro ao carregar informações: ${response.status} - ${response.statusText}`);
+    }
+    const result = await (response.json());
+    console.log(result);
+    if(result){
+      carregaColunas(result.Id);
+    }
+    
+  }
+  catch(error){
+    console.error("Erro ao recuperar tema:", error);
+  }
+
+}
+
+async function carregaColunas(boardId){
+
+  try{
+    const response = await fetch(`${API_BASE_URL}/ColumnByBoardId?BoardId=${boardId}`)
+    if(!response.ok){
+      throw new Error(`Erro ao carregar informações: ${response.status} - ${response.statusText}`);
+    }
+    const result = await (response.json());
+    if(result){
+      criaColunas(result);
+    }
+  }
+  catch(error){
+    console.error("Erro:", error);
+  }
+}
+
+async function getTasks(columnId) {
+  try{
+    const response = await fetch(`${API_BASE_URL}/TasksByColumnId?ColumnId=${columnId}`)
+    if(!response.ok){
+      throw new Error(`Erro ao carregar informações: ${response.status} - ${response.statusText}`);
+    }
+    const result = await response.json();
+    if(result){
+      return result;
+    }
+  }
+  catch(error){
+    console.error("Erro:", error);
+  }
+}
+
+function criaColunas(colunas){
+
+  colunas.forEach((coluna)=>{
+    let tasks = getTasks(coluna.Id);
+    console.log(tasks)
+
+    let elemento = document.createElement('div');
+    elemento.className = 'column';
+    elemento.innerHTML = `
+    <h2 class="colunas-titulo">${coluna.Name}</h2>
+    <div>${tasks.Description}</div>
+    `
+    boardContent.appendChild(elemento);
+    
+  })
+}
+
+
+
 
 const trilho = document.getElementById("trilho")
 const body = document.querySelector("body");
 const tituloLogo = document.getElementById("titulo-logo");
 const cabecalho = document.querySelector(".cabecalho");
 const navBar = document.querySelector(".navBar");
+const btnLogout = document.getElementById("logOut"); 
+const dropButton = document.getElementById("btndrop");
+const contentBoard = document.querySelector(".content-boards");
 
 trilho.addEventListener("click", ()=>{
   let temaAtual = modificaTema();
@@ -84,8 +164,12 @@ function modificaTema(){
   tituloLogo.classList.toggle('dark');
   cabecalho.classList.toggle('dark');
   navBar.classList.toggle('dark');
+  btnLogout.classList.toggle('dark');
+  dropButton.classList.toggle('dark');
+  contentBoard.classList.toggle('dark');
 
-  if(trilho.classList.contains('dark') && body.classList.contains('dark') && tituloLogo.classList.contains('dark') && cabecalho.classList.contains('dark') && navBar.classList.contains('dark')){
+  if(trilho.classList.contains('dark') && body.classList.contains('dark') && tituloLogo.classList.contains('dark') && 
+    cabecalho.classList.contains('dark') && navBar.classList.contains('dark') && btnLogout.classList.contains('dark') && dropButton.classList.contains('dark') && contentBoard.classList.contains('dark')){
     return 1;
   }
   else{

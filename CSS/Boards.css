@@ -96,10 +96,11 @@
 .content-dropdown{
     display: none;
     flex-direction: column;
-    overflow: auto;
+    overflow-y: scroll;
     height: 120px;
-    width: 160px;
-    background-color: transparent;
+    width: 250px;
+    background-color: #b7bec78a;
+    border-radius: 6px;
     font-family: "Quicksand";
     color: #001a2c;
     font-size: 14px;
@@ -115,7 +116,7 @@
   }
 
 .content-dropdown::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.658); 
+    background: rgba(255, 255, 255, 0.6); 
     border-radius: 50px; 
   }
 
@@ -126,7 +127,7 @@
     list-style: none;
     height: 25px;
     border-radius: 6px;
-    width: 150px;
+    width: 240px;
     background-color: #edf8ff;
     text-align: center;
     cursor: pointer;
@@ -183,11 +184,12 @@
     height: 450px;
     border-radius: 20px;
     margin-top: 30px;
-    background: rgb(214, 221, 230, 0.2); 
+    background: rgba(198, 222, 253, 0.397); 
     backdrop-filter: blur(10px); 
     -webkit-backdrop-filter: blur(10px); 
     border-radius: 15px; 
     box-shadow: 0 4px 30px rgba(0, 44, 73, 0.1); 
+    transition: .5s;
 }
 
 .column{
@@ -252,4 +254,20 @@ body.dark{
 
 .navBar.dark{
     background-color: #002b49d7;
+}
+
+.botao-logOut.dark:hover{
+    color: #007acc;
+}
+
+.botao-dropdown.dark{
+    background-color: #d0d3d6;
+}
+
+.botao-dropdown.dark:hover{
+    background-color:#8da8bb;
+}
+
+.content-boards.dark{
+    background: rgba(189, 215, 248, 0.144); 
 }
