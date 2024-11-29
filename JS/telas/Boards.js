@@ -3,10 +3,10 @@ import {resgatarLocalStorage} from "../localStorage/saveLocalSt.js";
 
 const botaoDrop = document.getElementById("mydropdown")
 const infoLS = resgatarLocalStorage("user");
-const boardContent = document.getElementById("board-content")
+const boardContent = document.getElementById("board-content");
+const btndrop = document.getElementById("btndrop");
 
-
-document.getElementById("btndrop").addEventListener("click", ()=> {
+btndrop.addEventListener("click", ()=> {
     botaoDrop.classList.toggle("show");
   })
 
@@ -41,6 +41,7 @@ async function boardsInfo(){
             let lista = document.createElement("li");
             lista.innerHTML = `<a id="${board.Id}">${board.Name}</a>`
             lista.addEventListener("click", (event)=>{
+              btndrop.innerHTML = event.target.innerHTML;
               console.log(board.Id)
               chamaBoard(board.Id);
             })
@@ -114,9 +115,7 @@ async function getTasks(columnId) {
       throw new Error(`Erro ao carregar informações: ${response.status} - ${response.statusText}`);
     }
     const result = await response.json();
-    if(result){
-      return result;
-    }
+    return result;
   }
   catch(error){
     console.error("Erro:", error);
@@ -125,16 +124,28 @@ async function getTasks(columnId) {
 
 function criaColunas(colunas){
 
-  colunas.forEach((coluna)=>{
-    let tasks = getTasks(coluna.Id);
+
+  colunas.forEach(async (coluna)=>{
+    let tasks = await getTasks(coluna.Id);
     console.log(tasks)
 
     let elemento = document.createElement('div');
     elemento.className = 'column';
     elemento.innerHTML = `
     <h2 class="colunas-titulo">${coluna.Name}</h2>
-    <div>${tasks.Description}</div>
     `
+
+    tasks.forEach((task)=>{
+      console.log(task)
+      let novaTask = document.createElement('div');
+      novaTask.className = 'tasks'
+      novaTask.innerHTML = `
+      <h4>${task.Title}</h4>
+      <p>${task.Description}</p>
+      `
+      elemento.appendChild(novaTask);
+    })
+
     boardContent.appendChild(elemento);
     
   })

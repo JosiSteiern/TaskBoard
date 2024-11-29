@@ -96,7 +96,7 @@
 .content-dropdown{
     display: none;
     flex-direction: column;
-    overflow-y: scroll;
+    overflow: auto;
     height: 120px;
     width: 250px;
     background-color: #b7bec78a;
@@ -178,7 +178,7 @@
 .content-boards{
     display: flex;
     justify-self: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     width: 80%;
     height: 450px;
@@ -190,6 +190,7 @@
     border-radius: 15px; 
     box-shadow: 0 4px 30px rgba(0, 44, 73, 0.1); 
     transition: .5s;
+    padding: 6px;
 }
 
 .column{
@@ -197,7 +198,44 @@
     height: 93%;
     background-color: #edf8ff4f;
     border-radius: 20px;
-    box-shadow: 0 4px 30px rgba(0, 44, 73, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 44, 73, 0.3);
+    padding: 6px;
+    font-family: "Quicksand";
+    overflow: auto;
+}
+
+.column::-webkit-scrollbar {
+    width: 0;
+}
+
+
+.column h2{
+    font-weight: 500;
+    font-family: "Sour Gummy";
+    text-align: center;
+    width: 100%;
+    background-color: #004e83;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom: 1px solid #8da8bb;
+    margin-bottom: 10px;
+}
+
+.tasks{
+    outline: #001422 0.1px solid;  
+    margin-bottom: 8px; 
+    border-radius: 8px;
+    padding: 3px;
+    background-color: #b7bec7bd;
+}
+
+.tasks h4{
+    border-bottom: #001422 0.1px solid;
+    margin-bottom: 4px;
+}
+
+.tasks p{
+    font-size: 14px;
 }
 
 .nuvem1{
