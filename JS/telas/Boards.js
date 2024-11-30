@@ -42,7 +42,7 @@ async function boardsInfo(){
             lista.innerHTML = `<a id="${board.Id}">${board.Name}</a>`
             lista.addEventListener("click", (event)=>{
               btndrop.innerHTML = event.target.innerHTML;
-              console.log(board.Id)
+              limpaBoards();
               chamaBoard(board.Id);
             })
             content.appendChild(lista);
@@ -52,6 +52,10 @@ async function boardsInfo(){
       console.error("Erro ao buscar informações dos boards:", error);
       content.innerHTML = `<li>Erro ao carregar informações. Por favor, tente novamente mais tarde.</li>`;
     }
+}
+
+function limpaBoards(){
+  boardContent.innerHTML = " ";
 }
 
 function recuperaUserInfo() {
@@ -124,19 +128,16 @@ async function getTasks(columnId) {
 
 function criaColunas(colunas){
 
-
   colunas.forEach(async (coluna)=>{
     let tasks = await getTasks(coluna.Id);
-    console.log(tasks)
 
     let elemento = document.createElement('div');
     elemento.className = 'column';
     elemento.innerHTML = `
-    <h2 class="colunas-titulo">${coluna.Name}</h2>
+    <div class="colunas-titulo">${coluna.Name}</div>
     `
 
     tasks.forEach((task)=>{
-      console.log(task)
       let novaTask = document.createElement('div');
       novaTask.className = 'tasks'
       novaTask.innerHTML = `
@@ -146,10 +147,21 @@ function criaColunas(colunas){
       elemento.appendChild(novaTask);
     })
 
-    boardContent.appendChild(elemento);
-    
+    boardContent.appendChild(elemento); 
   })
+
+  let adicionarColuna = document.createElement('button');
+  adicionarColuna.innerText = "Criar coluna";
+  adicionarColuna.id = 'btnCriarColuna';
+
+  adicionarColuna.style.order = colunas.length * 2 + 1;
+  boardContent.appendChild(adicionarColuna);
+
 }
+
+document.getElementById("btnCriarColuna").addEventListener("click", ()=>{
+  // Função para criar nova coluna
+})
 
 
 

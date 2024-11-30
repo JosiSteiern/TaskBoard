@@ -190,43 +190,64 @@
     border-radius: 15px; 
     box-shadow: 0 4px 30px rgba(0, 44, 73, 0.1); 
     transition: .5s;
-    padding: 6px;
+    padding: 15px;
+    overflow-x: auto;
+    white-space: normal;
 }
 
+.content-boards::-webkit-scrollbar{
+    background-color: transparent;
+    height: 6px;
+}   
+
+.content-boards::-webkit-scrollbar-thumb{
+    background-color: #8da8bb;
+    border-radius: 10px;
+}
+
+
 .column{
+    flex: 0 0 auto;
     width: 250px;
-    height: 93%;
+    height: 100%;
     background-color: #edf8ff4f;
     border-radius: 20px;
     box-shadow: 0 4px 30px rgba(0, 44, 73, 0.3);
-    padding: 6px;
     font-family: "Quicksand";
     overflow: auto;
+    margin: 10px;
+    padding: 6px;
 }
 
 .column::-webkit-scrollbar {
     width: 0;
 }
 
-
-.column h2{
+.colunas-titulo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: 500;
     font-family: "Sour Gummy";
     text-align: center;
     width: 100%;
+    height: 30px;
     background-color: #004e83;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     border-bottom: 1px solid #8da8bb;
     margin-bottom: 10px;
+    font-size: 20px;
+    position: sticky;
+    top: 0;
 }
 
 .tasks{
     outline: #001422 0.1px solid;  
-    margin-bottom: 8px; 
     border-radius: 8px;
-    padding: 3px;
+    padding: 5px;
     background-color: #b7bec7bd;
+    margin: 8px;
 }
 
 .tasks h4{
@@ -236,6 +257,25 @@
 
 .tasks p{
     font-size: 14px;
+}
+
+#btnCriarColuna{
+    flex: 0 0 auto;
+    width: 250px;
+    border: none;
+    height: 40px;
+    background-color: #edf8ff4f;
+    border-radius: 13px;
+    box-shadow: 0 4px 30px rgba(0, 44, 73, 0.3);
+    font-family: "Sour Gummy";
+    font-size: 16px;
+    font-weight: 400;
+    align-self: start;
+    cursor: pointer;
+}
+
+#btnCriarColuna:hover{
+    background-color: #b7bec7;
 }
 
 .nuvem1{
