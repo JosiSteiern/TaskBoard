@@ -104,7 +104,7 @@ async function carregaColunas(boardId){
     }
     const result = await (response.json());
     if(result){
-      criaColunas(result);
+      criaColunas(result, boardId);
     }
   }
   catch(error){
@@ -126,7 +126,7 @@ async function getTasks(columnId) {
   }
 }
 
-function criaColunas(colunas){
+function criaColunas(colunas, boardId){
 
   colunas.forEach(async (coluna)=>{
     let tasks = await getTasks(coluna.Id);
@@ -143,6 +143,10 @@ function criaColunas(colunas){
       novaTask.innerHTML = `
       <h4>${task.Title}</h4>
       <p>${task.Description}</p>
+      <div class="container-btns">
+        <button class="editar-task"><img src="../resources/edit.svg" alt="editar"></button>
+        <button class="excluir-task"><img src="../resources/bin.svg" alt="delete"></button>
+      </div>
       `
       elemento.appendChild(novaTask);
     })
@@ -152,19 +156,86 @@ function criaColunas(colunas){
 
   let adicionarColuna = document.createElement('button');
   adicionarColuna.innerText = "Criar coluna";
-  adicionarColuna.id = 'btnCriarColuna';
+  adicionarColuna.className = 'btnCriarColuna';
+  adicionarColuna.addEventListener("click", ()=>{
+    criarNovaColuna(boardId);
+  })
 
   adicionarColuna.style.order = colunas.length * 2 + 1;
   boardContent.appendChild(adicionarColuna);
 
 }
 
-document.getElementById("btnCriarColuna").addEventListener("click", ()=>{
-  // Função para criar nova coluna
-})
+function criarNovaColuna(BoardId){
+  let novaColuna = document.createElement('div');
+  novaColuna.className = 'nova-coluna';
+  novaColuna.innerHTML = `
+    <input type="text" placeholder="Digite o nome da coluna...">
+    <div class="container-botoes-coluna">
+      <button class="btnCriar-coluna">Adicionar</button>
+      <button class="descartar-nova-coluna"><img src="../resources/close.svg" alt="Fechar"></button>
+    </div>
+  `
 
+  const botaoAdicionar = novaColuna.querySelector('.btnCriar-coluna');
+  botaoAdicionar.addEventListener('click', function () {
+    adicionaNovaColuna(this, novaColuna, BoardId);
+  });
 
+  const botaoExcluir = novaColuna.querySelector('.descartar-nova-coluna');
+  botaoExcluir.addEventListener('click', ()=>{
+    boardContent.removeChild(novaColuna);
+  })
 
+  boardContent.appendChild(novaColuna);
+}
+
+function adicionaNovaColuna(button, novaColuna, boardId){
+  let input = button.parentElement.previousElementSibling;
+  let valorInput = input.value;
+
+  let newColumn = document.createElement('div');
+  newColumn.className = "column"
+  newColumn.innerHTML = `
+    <div class="colunas-titulo">${valorInput}</div>
+    <button class="adicionar-Tarefa">Nova Tarefa</button>
+  `
+  postColumn(valorInput, boardId);
+  boardContent.appendChild(newColumn);
+  boardContent.removeChild(novaColuna);
+}
+
+async function postColumn(input, boardId){
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  const raw = JSON.stringify({
+    "BoardId": boardId,
+    "Name": input
+  });
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow"
+  };
+
+  try{
+    const response = await fetch(`${API_BASE_URL}/Column`, requestOptions)
+    if(!response.ok){
+      throw new Error(`Erro ao enviar informações: ${response.status} - ${response.statusText}`);
+    }
+    const result = await response.text();
+    console.log(result);
+  }
+  catch(error){
+    console.error("Erro:", error);
+  }
+
+}
+
+/* Código para tema claro e escuro */ 
 
 const trilho = document.getElementById("trilho")
 const body = document.querySelector("body");
