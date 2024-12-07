@@ -173,7 +173,7 @@
 .content-boards{
     display: flex;
     justify-self: center;
-    align-items: center;
+    align-items: flex-start;
     width: 80%;
     height: 450px;
     border-radius: 20px;
@@ -203,8 +203,8 @@
 
 .column{
     flex: 0 0 auto;
+    flex-wrap: wrap;
     width: 250px;
-    height: 100%;
     background-color: #edf8ff4f;
     border-radius: 20px;
     box-shadow: 0 4px 30px rgba(0, 44, 73, 0.3);
@@ -235,6 +235,7 @@
     font-size: 20px;
     position: sticky;
     top: 0;
+    color: #d6dde6;
 }
 
 .tasks{
@@ -245,13 +246,37 @@
     margin: 8px;
 }
 
-.tasks h4{
+.titulo-task{
     border-bottom: #001422 0.1px solid;
     margin-bottom: 4px;
 }
 
-.tasks p{
+.desc-task{
     font-size: 14px;
+}
+
+.input-criar-task{
+    background-color: #edf8ff;
+    border: 0.1px solid #001422;
+    border-radius: 6px;
+    padding: 4px;
+    font-family: "Quicksand";
+    color: #001422;
+    width: 95%;
+    margin-bottom: 4px;
+    margin-top: 4px;
+}
+
+.descricao-task{
+    background-color: #edf8ff;
+    border: 0.1px solid #001422;
+    border-radius: 6px;
+    padding: 3px;
+    color: #001422;
+    font-family: "Quicksand";
+    height: 50px;
+    width: 95%;
+    margin-bottom: 8px;
 }
 
 .container-btns{
@@ -284,7 +309,8 @@
     font-weight: 400;
     align-self: start;
     cursor: pointer;
-    margin: 0 10px;
+    margin: 10px;
+    color: #001422;
 }
 
 #btnCriarColuna:hover{
@@ -301,7 +327,7 @@
     box-shadow: 0 4px 30px rgba(0, 44, 73, 0.3);
     align-self: flex-start;
     font-family: "Quicksand";
-    margin: 0 10px;
+    margin: 10px;
 }
 
 .nova-coluna input{
@@ -342,17 +368,27 @@
 }
 
 .btnCriar-coluna:hover{
-    background-color: #8da8bb;
+    background-color: #00426ecb;
+}
+
+.btns-tasks{
+    display: flex;
+    background-color: #b7bec791;
+    width: 93%;
+    border-radius: 6px;
+    margin-left: 8px;
 }
 
 .adicionar-Tarefa{
+    display: flex;
+    align-items: center;
     border: none;
-    width: 100%;
+    width: 85%;
     height: 25px;
     font-family: "Quicksand";
     font-weight: bold;
     color: #001422;
-    background-color: #b7bec7;
+    background-color: transparent;
     border-radius: 6px;
     text-align: start;
     padding: 6px;
@@ -360,7 +396,23 @@
 }
 
 .adicionar-Tarefa:hover{
-    background-color: #8da8bb;
+    background-color: #b7bec7;
+}
+
+.excluir-column{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    border-radius: 4px;
+    width: 25px;
+    cursor: pointer;
+    width: 15%;
+}
+
+.excluir-column:hover{
+    background-color: #b7bec7;
 }
 
 .nuvem1{
